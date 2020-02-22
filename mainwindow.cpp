@@ -9,6 +9,7 @@
  *
  * 16 Feb 20 -- Could not get qtrpn to modify its ui.  So I'm creating qtrpn2, w/ a new ui
  *
+ * 22 Feb 20 -- Added global ui2 so could show initial form w/ content.
  *
  */
 
@@ -40,6 +41,8 @@
 #include "makesubst.h"
 
 void ProcessInput(string cmdstr);  // forward reference
+void FUNCTION REPAINT(); // forward reference
+
 int SigFig = -1;  // qt creator complained about a double definition of sigfig, so this one is now SigFig
 struct RegisterType {
     double value;
@@ -57,6 +60,7 @@ string LastCompiledTime = __TIME__;
 enum OutputStateEnum {outputfix, outputfloat, outputgen};
 OutputStateEnum OutputState = outputfix;
 
+Ui::MainWindow *ui2; // global so the pgm can start up without blanks widgets.  Name clash when this was ui, and pgm crashed.
 
 // constructor
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -91,6 +95,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         }
     }
 
+    ui2 = ui;  // initialize the global ui2, for use in REPAINT();
+
     QStringList list = QCoreApplication::arguments();
     QString qstr, argv;
     if (NOT list.isEmpty()){
@@ -101,6 +107,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
             argv += qstr + " ";
         }
     }
+    REPAINT();
 }
 
 MainWindow::~MainWindow() {
@@ -224,6 +231,10 @@ void FUNCTION repaint(Ui::MainWindow *ui) {
   WriteStack(ui);
   WriteReg(ui);
 } // repaint()
+
+void FUNCTION REPAINT() {
+    repaint(ui2);
+}
 
 QString FUNCTION GetNameString(QWidget *parent) {
   QString prompt = "Input name, will make - or = into a space : ";
