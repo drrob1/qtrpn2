@@ -9,7 +9,7 @@
  *
  * 16 Feb 20 -- Could not get qtrpn to modify its ui.  So I'm creating qtrpn2, w/ a new ui
  *
- * 22 Feb 20 -- Added global ui2 so could show initial form w/ content.
+ * 22 Feb 20 -- Added global ui2 so could show initial form w/ content.  And found setFocus method for lineEdit.
  *
  */
 
@@ -108,6 +108,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         }
     }
     REPAINT();
+    //ui->lineEdit->setCursorPosition(0);  // try to give the line edit box the focus.  Didn't work
+    ui->lineEdit->setPlaceholderText("input box"); // doesn't give the box focus.
+    ui->lineEdit->setFocus(); // this looks promising
 }
 
 MainWindow::~MainWindow() {
@@ -546,3 +549,13 @@ void MainWindow::on_comboBox_textHighlighted(const QString &arg1) {
 }
 
 */
+
+void MainWindow::on_pushButton_exit_pressed() {
+    qDebug() << "in on_pushButton_exit_pressed";
+    on_pushButton_exit_clicked();
+}
+
+void MainWindow::on_pushButton_quit_pressed() {
+    qDebug() << "in on_pushButton_quit_pressed";
+    on_pushButton_quit_clicked();
+}
