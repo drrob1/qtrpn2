@@ -11,6 +11,8 @@
  *
  * 22 Feb 20 -- Added global ui2 so could show initial form w/ content.  And found setFocus method for lineEdit.
  *
+ * 25 Feb 20 -- Added PlaceHolderText as the prompt.
+ *
  */
 
 
@@ -63,6 +65,40 @@ OutputStateEnum OutputState = outputfix;
 Ui::MainWindow *ui2; // global so the pgm can start up without blanks widgets.  Name clash when this was ui, and pgm crashed.
 
 // constructor
+/*                                           in mainwindow.h
+class MainWindow : public QMainWindow {
+
+    Q_OBJECT
+
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
+private slots:
+    void on_action0_triggered();
+    void on_action2_triggered();
+    void on_action4_triggered();
+    void on_action6_triggered();
+    void on_action8_triggered();
+    void on_actionfixed_triggered();
+    void on_actionfloat_triggered();
+    void on_actiongen_triggered();
+    void on_actionclear_area_triggered();
+    void on_lineEdit_returnPressed();
+    void on_pushButton_enter_clicked();
+    void on_pushButton_exit_clicked();
+    void on_pushButton_quit_clicked();
+    void on_comboBox_activated(const QString &arg1);
+    void on_action_1_triggered();
+    void on_pushButton_exit_pressed();
+    void on_pushButton_quit_pressed();
+
+private:
+    Ui::MainWindow *ui;
+};
+*/
+//
+//
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
@@ -109,7 +145,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     }
     REPAINT();
     //ui->lineEdit->setCursorPosition(0);  // try to give the line edit box the focus.  Didn't work
-    ui->lineEdit->setPlaceholderText("input box"); // doesn't give the box focus.
+    ui->lineEdit->setPlaceholderText("Enter command, help, or <enter> to exit"); // doesn't give the box focus.
     ui->lineEdit->setFocus(); // this looks promising
 }
 
