@@ -13,6 +13,8 @@
  *
  * 25 Feb 20 -- Added PlaceHolderText as the prompt.
  *
+ * 27 Feb 20 -- Added "?" as help. And menu items for help and about.
+ *
  */
 
 
@@ -99,7 +101,7 @@ private:
 */
 //
 //
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) { // name same as class is the constructor
     ui->setupUi(this);
 
     CombinedFilenamestring = QDir::homePath() + "/" + CombinedFileName;
@@ -145,7 +147,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     }
     REPAINT();
     //ui->lineEdit->setCursorPosition(0);  // try to give the line edit box the focus.  Didn't work
-    ui->lineEdit->setPlaceholderText("Enter command, help, or <enter> to exit"); // doesn't give the box focus.
+    ui->lineEdit->setPlaceholderText("Input command"); // doesn't give the box focus.
     ui->lineEdit->setFocus(); // this looks promising
 }
 
@@ -314,7 +316,7 @@ void FUNCTION ProcessInput(QWidget *parent, Ui::MainWindow *ui, string cmdstr) {
     ui->comboBox->addItem(qs);
 
 
-    if (cmdstr.compare("help") == 0) {   // help
+    if ((cmdstr.compare("help") == 0) OR (cmdstr.compare("?") EQ 0)  ){   // help
         WriteHelp(parent);
     } else if (cmdstr.find("sto") EQ 0) {  // stoN
         int i = 0;
@@ -594,4 +596,27 @@ void MainWindow::on_pushButton_exit_pressed() {
 void MainWindow::on_pushButton_quit_pressed() {
     qDebug() << "in on_pushButton_quit_pressed";
     on_pushButton_quit_clicked();
+}
+
+void MainWindow::on_actionHelp_triggered() {
+    WriteHelp(this);
+}
+
+void MainWindow::on_actionAbout_triggered() {
+    vector<string> stringslice;
+    vector<string>::iterator iter;
+
+    calcPairType calcpair = GetResult("ABOUT");
+    for (iter = calcpair.ss.begin(); iter != calcpair.ss.end(); iter++) {
+        QString qstr = iter->c_str(); // recall that the -> operator is a type of dereference operator.
+        ui->listWidget_output->addItem(qstr);
+    }
+
+    string aboutmsg = "MainWindow Pgm last compiled " + LastCompiledDate + " " + LastCompiledTime;
+    QString qaboutmsg = aboutmsg.c_str();
+    // QString aboutmsg2 = QString::fromStdString(aboutmsg); this works
+    // qaboutmsg.fromStdString(aboutmsg);  this also works
+
+    ui->listWidget_output->addItem(qaboutmsg);
+
 }

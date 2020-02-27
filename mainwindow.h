@@ -60,6 +60,10 @@ private slots:
 
     void on_pushButton_quit_pressed();
 
+    void on_actionHelp_triggered();
+
+    void on_actionAbout_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -126,7 +126,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -179,9 +179,23 @@
     </property>
     <addaction name="actionclear_area"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+   </widget>
+   <widget class="QMenu" name="menuABout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menusigfig"/>
    <addaction name="menuOutput_State"/>
    <addaction name="menuClear_Output_Area"/>
+   <addaction name="menuHelp"/>
+   <addaction name="menuABout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_1">
@@ -232,6 +246,16 @@
   <action name="actionclear_area">
    <property name="text">
     <string>clear area</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>
