@@ -13,7 +13,8 @@
  *
  * 25 Feb 20 -- Added PlaceHolderText as the prompt.
  *
- * 27 Feb 20 -- Added "?" as help. And menu items for help and about.
+ * 27 Feb 20 -- Added "?" as help. And menu items for help and about.  And learned that in main.cpp, I can use w.showFullScreen() or other variants of the show() method.
+ *
  *
  */
 

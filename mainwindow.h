@@ -12,7 +12,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);  // when a declaration name matches the class name, this is a constructor.
     ~MainWindow();
 
 private slots:
