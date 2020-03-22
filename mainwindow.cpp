@@ -431,18 +431,21 @@ void FUNCTION ProcessInput(QWidget *parent, Ui::MainWindow *ui, string cmdstr) {
     } // else from if input "help"
 
     repaint(ui);
+
+    double R = READX();
     QString qR1, qR2, qR3, qRfix, qRfloat, qRgen;
-    string str = to_string(calcpair.R);
+    string str = to_string(R);
     str = CropNStr(str);
     if (calcpair.R > 10000) str = AddCommas(str);
     qR1 = QString("%1").arg(str.c_str());
     qR2 = QString::fromStdString(str);
-    qR3 = QString("%1").arg(calcpair.R);
-    qRgen = QString("%1").arg(calcpair.R,5,'g',SigFig);// params are: double,int fieldwidth=0, char format='g', int precision= -1 ,QChar fillchar = QLatin1Char(' ').
-    qRfix = QString("%1").arg(calcpair.R,2,'f',SigFig);  // more general form of the conversion which can use 'e', 'f' and sigfig.
-    qRfloat = QString("%1").arg(calcpair.R,9,'e',SigFig);
+    qR3 = QString("%1").arg(R);
+    qRgen = QString("%1").arg(R,5,'g',SigFig);// params are: double,int fieldwidth=0, char format='g', int precision= -1 ,QChar fillchar = QLatin1Char(' ').
+    qRfix = QString("%1").arg(R,2,'f',SigFig);  // more general form of the conversion which can use 'e', 'f' and sigfig.
+    qRfloat = QString("%1").arg(R,9,'e',SigFig);
     QString qoutputline = qR1 + "          " + qR2 + "           " + qRgen;
     //qoutputline = "qR1= " + qR1 + ", qR2= " + qR2 + ", qR3= " + qR3 + ", qRgen= " + qRgen + ", qRfix= " + qRfix + ", qRfloat= " + qRfloat;
+
     ui->listWidget_X->addItem(qoutputline);
 
 
