@@ -15,6 +15,7 @@
  *
  * 27 Feb 20 -- Added "?" as help. And menu items for help and about.  And learned that in main.cpp, I can use w.showFullScreen() or other variants of the show() method.
  *
+ * 22 Mar 20 -- Started to actually use it, and I noticed that I need a top display of X register.  So I added it.  And I enlarged the mainwindow and its list widgets
  *
  */
 
@@ -74,7 +75,7 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);  when a declaration within a class have the same name, that's a constructor definition.
     ~MainWindow();
 
 private slots:
@@ -315,6 +316,7 @@ void FUNCTION ProcessInput(QWidget *parent, Ui::MainWindow *ui, string cmdstr) {
     QString qs = QString::fromStdString(cmdstr);
     ui->listWidget_hx->addItem(qs);
     ui->comboBox->addItem(qs);
+    ui->listWidget_X->clear();
 
 
     if ((cmdstr.compare("help") == 0) OR (cmdstr.compare("?") EQ 0)  ){   // help
@@ -423,23 +425,26 @@ void FUNCTION ProcessInput(QWidget *parent, Ui::MainWindow *ui, string cmdstr) {
             }
         }
 
-        QString qR1, qR2, qR3, qRfix, qRfloat, qRgen;
-        string str = to_string(calcpair.R);
-        str = CropNStr(str);
 
-        if (calcpair.R > 10000) str = AddCommas(str);
 
-        qR1 = QString("%1").arg(str.c_str());
-        qR2 = QString::fromStdString(str);
-        qR3 = QString("%1").arg(calcpair.R);
-        qRgen = QString("%1").arg(calcpair.R,5,'g',SigFig);// params are: double,int fieldwidth=0, char format='g', int precision= -1 ,QChar fillchar = QLatin1Char(' ').
-        qRfix = QString("%1").arg(calcpair.R,2,'f',SigFig);  // more general form of the conversion which can use 'e', 'f' and sigfig.
-        qRfloat = QString("%1").arg(calcpair.R,9,'e',SigFig);
-        QString qoutputline;
-        qoutputline = "qR1= " + qR1 + ", qR2= " + qR2 + ", qR3= " + qR3 + ", qRgen= " + qRgen + ", qRfix= " + qRfix + ", qRfloat= " + qRfloat;
+
     } // else from if input "help"
 
     repaint(ui);
+    QString qR1, qR2, qR3, qRfix, qRfloat, qRgen;
+    string str = to_string(calcpair.R);
+    str = CropNStr(str);
+    if (calcpair.R > 10000) str = AddCommas(str);
+    qR1 = QString("%1").arg(str.c_str());
+    qR2 = QString::fromStdString(str);
+    qR3 = QString("%1").arg(calcpair.R);
+    qRgen = QString("%1").arg(calcpair.R,5,'g',SigFig);// params are: double,int fieldwidth=0, char format='g', int precision= -1 ,QChar fillchar = QLatin1Char(' ').
+    qRfix = QString("%1").arg(calcpair.R,2,'f',SigFig);  // more general form of the conversion which can use 'e', 'f' and sigfig.
+    qRfloat = QString("%1").arg(calcpair.R,9,'e',SigFig);
+    QString qoutputline = qR1 + "          " + qR2 + "           " + qRgen;
+    //qoutputline = "qR1= " + qR1 + ", qR2= " + qR2 + ", qR3= " + qR3 + ", qRgen= " + qRgen + ", qRfix= " + qRfix + ", qRfloat= " + qRfloat;
+    ui->listWidget_X->addItem(qoutputline);
+
 
     // clear the input lineedit before returning to it
     ui->lineEdit->clear();
@@ -545,7 +550,7 @@ void MainWindow::on_pushButton_exit_clicked() {
     QApplication::quit();      // same as QCoreApplication::quit();
 
     // if the event loop is not running, these quit() commands will not work.  In that case, need to call exit(EXIT_FAILURE);
-    exit(EXIT_FAILURE);
+    // exit(EXIT_FAILURE);  is this even needed?  I'm leaving it out of the exit button and will leave it in the quit button.
 }
 
 void MainWindow::on_pushButton_quit_clicked() {

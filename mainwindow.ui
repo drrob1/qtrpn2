@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>942</width>
-    <height>662</height>
+    <width>1048</width>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,29 +18,29 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>80</y>
-      <width>256</width>
-      <height>192</height>
+      <y>100</y>
+      <width>311</width>
+      <height>271</height>
      </rect>
     </property>
    </widget>
    <widget class="QListWidget" name="listWidget_registers">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>80</y>
-      <width>256</width>
-      <height>192</height>
+      <x>345</x>
+      <y>100</y>
+      <width>371</width>
+      <height>271</height>
      </rect>
     </property>
    </widget>
    <widget class="QListWidget" name="listWidget_hx">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>80</y>
-      <width>256</width>
-      <height>192</height>
+      <x>735</x>
+      <y>100</y>
+      <width>301</width>
+      <height>271</height>
      </rect>
     </property>
    </widget>
@@ -130,9 +130,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>280</y>
+      <y>390</y>
       <width>721</width>
-      <height>194</height>
+      <height>231</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -144,13 +144,28 @@
      </item>
     </layout>
    </widget>
+   <widget class="QListWidget" name="listWidget_X">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>50</y>
+      <width>991</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>942</width>
+     <width>1048</width>
      <height>21</height>
     </rect>
    </property>
