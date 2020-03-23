@@ -56,6 +56,7 @@
                  UNDO is still not working.  I'm going to change stackmatrix operations so they do not do a rollup or rolldonw, instead just a move up and move down.
                  This file is now different than the version in ~/cppcode.
    9 Feb 20 -- Added that > or < will also swap X <--> Y.  And changed how DOW works, now it doesn't alter stack but returns a string message.
+  22 Mar 20 -- Fixed bug in PrimeFac in that it needs to complain about zero values.
 
 */
 
@@ -698,22 +699,29 @@ calcPairType FUNCTION GetResult(string s) {
 
                     ELSIF Token.uStr.find("PRIMEF") EQ 0 THEN
                       PushStacks();
-                      int n = round(Stack[X]);
-                      vector<int> primefactors = PrimeFactorMemoized(n);
-                      vector<int>::iterator primeit;
-
-                      // always will have as factors 1 and itself.  Cannot get an empty set of factors.
                       string str;
-                      FOR primeit = primefactors.begin(); primeit != primefactors.end(); primeit++ DO
-                        char s[50];
-                        sprintf(s, "%d", *primeit);
-                        string s1 = s;
-                        str.append(s1);
-                        str.append(", ");
-                      ENDIF;
-                      str.pop_back();  // delete the last ", "
-                      str.pop_back();  // delete the last ", "
-                      calcpair.ss.push_back(str);
+                      int n = round(Stack[X]);
+                      if (n < 2) {
+                          str = " PrimeFac cmd of numbers < 2 ignored.";
+                          calcpair.ss.push_back(str);
+                      } else {
+
+                          vector<int> primefactors = PrimeFactorMemoized(n);
+                          vector<int>::iterator primeit;
+
+                          // always will have as factors 1 and itself.  Cannot get an empty set of factors.
+
+                          FOR primeit = primefactors.begin(); primeit != primefactors.end(); primeit++ DO
+                            char s[50];
+                            sprintf(s, "%d", *primeit);
+                            string s1 = s;
+                            str.append(s1);
+                            str.append(", ");
+                          ENDIF;
+                          str.pop_back();  // delete the last ", "
+                          str.pop_back();  // delete the last ", "
+                          calcpair.ss.push_back(str);
+                      }
 
                     ELSIF Token.uStr.find("POP") EQ 0 THEN // allow POP, POPX, or even POPULAR :-)
                         PushStacks();
