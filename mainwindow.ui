@@ -206,11 +206,18 @@
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuClipboard">
+    <property name="title">
+     <string>Clipboard</string>
+    </property>
+    <addaction name="actionToClip"/>
+   </widget>
    <addaction name="menusigfig"/>
    <addaction name="menuOutput_State"/>
    <addaction name="menuClear_Output_Area"/>
    <addaction name="menuHelp"/>
    <addaction name="menuABout"/>
+   <addaction name="menuClipboard"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_1">
@@ -271,6 +278,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionToClip">
+   <property name="text">
+    <string>ToClip</string>
    </property>
   </action>
  </widget>

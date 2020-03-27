@@ -17,6 +17,7 @@
  *
  * 22 Mar 20 -- Started to actually use it, and I noticed that I need a top display of X register.  So I added it.  And I enlarged the mainwindow and its list widgets
  *
+ * 27 Mar 20 -- Adding toclip.
  */
 
 
@@ -31,6 +32,8 @@
 #include <QInputDialog>
 #include <QDir>
 #include <QtDebug>
+#include <QClipboard>
+#include <QThread>
 // ----------------------- my stuff
 #include "macros.h"
 #include "hpcalcc2.h"
@@ -155,6 +158,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 MainWindow::~MainWindow() {
     delete ui;
+}
+
+void FUNCTION ToClip() {
+    QClipboard *clipboard = QApplication::clipboard();
+
+    double R = READX();
+    string str = to_string(R);
+    QString qstr = QString::fromStdString(str);
+    clipboard->setText(qstr, QClipboard::Clipboard);
+    if (clipboard->supportsSelection()) {
+        clipboard->setText(qstr, QClipboard::Selection);
+    }
+
+    #if defined (Q_OS_LINUX)
+        QThread::msleep(1);
+    #endif
 }
 
 void WriteStack(Ui::MainWindow *ui) {
@@ -361,6 +380,9 @@ void FUNCTION ProcessInput(QWidget *parent, Ui::MainWindow *ui, string cmdstr) {
         QString qaboutmsg = aboutmsg.c_str();  // only works when c-string.
 
         ui->listWidget_output->addItem(qaboutmsg);
+
+    } else if (cmdstr.compare("toclip") EQ 0) {
+        ToClip();
 
     } else if (cmdstr.compare("debug") EQ 0) {
             GETSTACK(Stk);
@@ -628,4 +650,9 @@ void MainWindow::on_actionAbout_triggered() {
 
     ui->listWidget_output->addItem(qaboutmsg);
 
+}
+
+void MainWindow::on_actionToClip_triggered()
+{
+    ToClip();
 }
