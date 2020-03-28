@@ -66,6 +66,8 @@ private slots:
 
     void on_actionToClip_triggered();
 
+    void on_actionFromClip_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

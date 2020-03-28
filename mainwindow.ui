@@ -211,6 +211,7 @@
      <string>Clipboard</string>
     </property>
     <addaction name="actionToClip"/>
+    <addaction name="actionFromClip"/>
    </widget>
    <addaction name="menusigfig"/>
    <addaction name="menuOutput_State"/>
@@ -283,6 +284,11 @@
   <action name="actionToClip">
    <property name="text">
     <string>ToClip</string>
+   </property>
+  </action>
+  <action name="actionFromClip">
+   <property name="text">
+    <string>FromClip</string>
    </property>
   </action>
  </widget>

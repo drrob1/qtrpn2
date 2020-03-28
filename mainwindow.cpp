@@ -18,6 +18,8 @@
  * 22 Mar 20 -- Started to actually use it, and I noticed that I need a top display of X register.  So I added it.  And I enlarged the mainwindow and its list widgets
  *
  * 27 Mar 20 -- Adding toclip.
+ *
+ * 28 Mar 20 -- Adding fromclip.
  */
 
 
@@ -104,8 +106,8 @@ private:
     Ui::MainWindow *ui;
 };
 */
-//
-//
+
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) { // name same as class is the constructor
     ui->setupUi(this);
 
@@ -174,6 +176,17 @@ void FUNCTION ToClip() {
     #if defined (Q_OS_LINUX)
         QThread::msleep(1);
     #endif
+}
+
+void FUNCTION FromClip() {
+    QClipboard *clipboard = QApplication::clipboard();
+
+    QString qstr = clipboard->text();
+    //string str = qstr.toStdString();  I don't think this is needed
+    //double R = std::atof(str.c_str());
+    double R = qstr.toDouble();
+    PUSHX(R);
+
 }
 
 void WriteStack(Ui::MainWindow *ui) {
@@ -383,6 +396,9 @@ void FUNCTION ProcessInput(QWidget *parent, Ui::MainWindow *ui, string cmdstr) {
 
     } else if (cmdstr.compare("toclip") EQ 0) {
         ToClip();
+
+    } else if (cmdstr.compare("fromclip") EQ 0) {
+        FromClip();
 
     } else if (cmdstr.compare("debug") EQ 0) {
             GETSTACK(Stk);
@@ -655,4 +671,10 @@ void MainWindow::on_actionAbout_triggered() {
 void MainWindow::on_actionToClip_triggered()
 {
     ToClip();
+}
+
+void MainWindow::on_actionFromClip_triggered()
+{
+    FromClip();
+    ProcessInput(this, ui, " ");  // so the stack gets updated on screen.
 }
