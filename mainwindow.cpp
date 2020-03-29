@@ -20,6 +20,8 @@
  * 27 Mar 20 -- Adding toclip.
  *
  * 28 Mar 20 -- Adding fromclip.
+ *
+ * 29 Mar 20 -- Added RemoveCommas to be used by FromClip.
  */
 
 
@@ -162,6 +164,15 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+QString FUNCTION RemoveCommas(QString qstr) {
+    //bool commas = qstr.contains(',');
+
+    while (bool commas = qstr.contains(',')) {
+      qstr.remove(',');
+    }
+    return qstr;
+}
+
 void FUNCTION ToClip() {
     QClipboard *clipboard = QApplication::clipboard();
 
@@ -184,6 +195,7 @@ void FUNCTION FromClip() {
     QString qstr = clipboard->text();
     //string str = qstr.toStdString();  I don't think this is needed
     //double R = std::atof(str.c_str());
+    qstr = RemoveCommas(qstr);
     double R = qstr.toDouble();
     PUSHX(R);
 
