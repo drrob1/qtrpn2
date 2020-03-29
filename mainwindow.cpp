@@ -317,10 +317,12 @@ void WriteHelp(QWidget *parent) {  // this param is intended so that 'this' can 
 void FUNCTION repaint(Ui::MainWindow *ui) {
   WriteStack(ui);
   WriteReg(ui);
+  ui->lineEdit->setFocus();
 } // repaint()
 
 void FUNCTION REPAINT() {
     repaint(ui2);
+    ui2->lineEdit->setFocus();
 }
 
 QString FUNCTION GetNameString(QWidget *parent) {
